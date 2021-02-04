@@ -26,6 +26,7 @@ class CategoryProController extends Controller
     public function save_cate_pro(Request $req){
         $data = array();
         $data['category_name'] = $req->cate_pro_name;
+        $data['meta_keywords'] = $req->cate_pro_key;
         $data['category_desc'] = $req->cate_pro_desc;
         $data['category_status'] = $req->cate_pro_status;
 
@@ -51,6 +52,7 @@ class CategoryProController extends Controller
     public function update_cate_pro(Request $req,$cate_pro_id){
         $data = array();
         $data['category_name'] = $req->cate_pro_name;
+        $data['meta_keywords'] = $req->cate_pro_key;
         $data['category_desc'] = $req->cate_pro_desc;
         DB::table('tbl_category_product')->where('category_id',$cate_pro_id)->update($data);
         Session::put('message', 'Update thành công');
@@ -62,10 +64,21 @@ class CategoryProController extends Controller
         return redirect('/show-cate-pro');
     }
 
-    public function show_cate_home($cate_pro_id){
+    public function show_cate_home(request $req, $cate_pro_id){
+        
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand_pro')->where('brand_status','1')->orderby('brand_id','desc')->get();
         $cate_by_id = DB::table('tbl_product')->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_product.category_id',$cate_pro_id)->get();
-        return view('category.show_cate')->with('category',$cate_product)->with('brand',$brand_product)->with('cate_by_id',$cate_by_id);
+        foreach ($cate_by_id as $key => $value) {
+            # code...
+            $meta_desc = $value->category_desc;
+            $meta_keywords = $value->meta_keywords;
+            $meta_title = $value->category_name; 
+            $url_canonical = $req->url();
+            //end seo
+        }
+        return view('category.show_cate')->with('category',$cate_product)->with('brand',$brand_product)->with('cate_by_id',$cate_by_id)
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        
     }
 }

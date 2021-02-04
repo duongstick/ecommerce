@@ -27,6 +27,10 @@
                             <label for="exampleInputPassword1">Mô tả</label>
                             <textarea type="text" name="cate_pro_desc" class="form-control" id="exampleInputPassword1">{{$edit_value->category_desc}}</textarea>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Mô tả desc</label>
+                            <textarea type="text" name="cate_pro_key" class="form-control" id="exampleInputPassword1" placeholder="Desscription">{{$edit_value->meta_keywords}}</textarea>
+                        </div>
                         <button type="submit" name="update_cate_pro" class="btn btn-info">Sửa danh mục</button>
                     </form>
                 </div>

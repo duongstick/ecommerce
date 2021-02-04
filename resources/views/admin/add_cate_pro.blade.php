@@ -32,6 +32,10 @@
                                 <textarea type="text" name="cate_pro_desc" class="form-control" id="exampleInputPassword1" placeholder="Desscription"></textarea>
                             </div>
                             <div class="form-group">
+                                <label for="exampleInputPassword1">Mô tả desc</label>
+                                <textarea type="text" name="cate_pro_key" class="form-control" id="exampleInputPassword1" placeholder="Desscription"></textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputEmail1">Xem</label>
                                 <select name="cate_pro_status" id="" class="form-control input-sm m-bot15">
                                     <option value="0">Ẩn</option>

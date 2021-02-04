@@ -15,8 +15,14 @@ use Illuminate\Support\Facades\Redirect;
 class CheckoutController extends Controller
 {
     //
-    public function login_checkout(){
-        return view('checkout.login_checkout');
+    public function login_checkout(request $req){
+        $meta_desc = "con cak";
+        $meta_keywords = "test seo meta, cak";
+        $meta_title = "cak"; 
+        $url_canonical = $req->url();
+        //end seo
+        return view('checkout.login_checkout')
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
     public function add_customer(request $res){
         $data = array();
@@ -31,9 +37,15 @@ class CheckoutController extends Controller
         Session::put('customer_name',$res->customer_name);
         return redirect('/checkout');
     }
-    public function checkout(){
+    public function checkout(request $req){
         // return echo 'test';
-        return view('checkout.checkout');
+        $meta_desc = "con cak";
+        $meta_keywords = "test seo meta, cak";
+        $meta_title = "cak"; 
+        $url_canonical = $req->url();
+        //end seo
+        return view('checkout.checkout')
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
     public function save_checkout_cus(request $req){
         $data = array();
@@ -48,8 +60,14 @@ class CheckoutController extends Controller
         Session::put('shipping_id',$shipping_id);
         return redirect('/payment');
     }
-    public function payment(){
-        return view('checkout.payment');
+    public function payment(request $req){
+        $meta_desc = "con cak";
+        $meta_keywords = "test seo meta, cak";
+        $meta_title = "cak"; 
+        $url_canonical = $req->url();
+        //end seo
+        return view('checkout.payment')
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
     }
     public function logout_checkout(){
         Session::flush();
@@ -70,6 +88,11 @@ class CheckoutController extends Controller
         
     }
     public function order(request $req){
+        $meta_desc = "con cak";
+        $meta_keywords = "test seo meta, cak";
+        $meta_title = "cak"; 
+        $url_canonical = $req->url();
+        //seo
         //insert payment table
         $data = array();
         $data['payment_method'] = $req->payment_option;
@@ -98,7 +121,8 @@ class CheckoutController extends Controller
             echo 'Thanh toan the';
         } elseif($data['payment_method']==2){
             Cart::destroy();
-            return view('checkout.handcash');
+            return view('checkout.handcash')
+            ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
         }else {
             # code...
             echo 'Thanh toan bang paypal';

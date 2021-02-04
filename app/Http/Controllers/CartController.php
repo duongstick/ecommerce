@@ -30,10 +30,16 @@ class CartController extends Controller
         return Redirect::to('/show-cart');
     }
 
-    public function show_cart(){
+    public function show_cart(request $req){
+        $meta_desc = "con cak";
+        $meta_keywords = "test seo meta, cak";
+        $meta_title = "cak"; 
+        $url_canonical = $req->url();
+        //end seo
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand_pro')->where('brand_status','1')->orderby('brand_id','desc')->get();
-        return view('cart.show_cart')->with('category',$cate_product)->with('brand',$brand_product);  
+        return view('cart.show_cart')->with('category',$cate_product)->with('brand',$brand_product)
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);;  
     }
 
     public function delete_cart($rowId){

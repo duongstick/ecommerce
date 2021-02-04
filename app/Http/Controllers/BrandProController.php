@@ -18,9 +18,18 @@ class BrandProController extends Controller
         return view('admin.add_brand_pro');
     }
     public function show_brand_pro(){
+        foreach ($details_pro as $key => $value) {
+            # code...
+            $meta_desc = $value->brand_desc;
+            $meta_keywords = $value->brand_desc;
+            $meta_title = $value->brand_name; 
+            $url_canonical = $req->url();
+            //end seo
+        }
         $show_brand_pro = DB::table('tbl_brand_pro')->get();
         $manager_brand_pro = view('admin.show_brand_pro')->with('show_brand_pro', $show_brand_pro);
-        return view('admin_layout')->with('admin.show_brand_pro',$manager_brand_pro);
+        return view('admin_layout')->with('admin.show_brand_pro',$manager_brand_pro)
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);;
     }
     public function save_brand_pro(Request $req){
         $data = array();

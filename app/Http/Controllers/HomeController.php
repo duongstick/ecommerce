@@ -14,7 +14,12 @@ use Illuminate\Support\Facades\Redirect;
 class HomeController extends Controller
 {
     //
-    public function index(){
+    public function index(request $req){
+        $meta_desc = "con cak";
+        $meta_keywords = "test seo meta, cak";
+        $meta_title = "cak"; 
+        $url_canonical = $req->url();
+        //end seo
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand_pro')->where('brand_status','1')->orderby('brand_id','desc')->get();
 
@@ -24,7 +29,9 @@ class HomeController extends Controller
         // ->orderby('tbl_product.product_id','desc')->get();
         $all_product = DB::table('tbl_product')->where('product_status','1')->orderby('product_id','desc')->limit(4)->get();
 
-        return view('home')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product);
+        return view('home')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);
+        // return view('home')->with(compact('cate_product','brand_product','all_product')); option 2
     }
     public function search(request $req){
         $keyw = $req->keyw_sub;

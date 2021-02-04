@@ -108,7 +108,7 @@ class ProductController extends Controller
         Session::put('message', 'Xóa thành công');
         return redirect('/show-pro');
     }
-    public function details_pro($pro_id){
+    public function details_pro(request $req, $pro_id){
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $brand_product = DB::table('tbl_brand_pro')->where('brand_status','1')->orderby('brand_id','desc')->get();
         $details_pro = DB::table('tbl_product')
@@ -116,9 +116,14 @@ class ProductController extends Controller
         ->join('tbl_brand_pro','tbl_brand_pro.brand_id','=','tbl_product.brand_id')
         ->where('tbl_product.product_id',$pro_id)->get();
 
-        foreach ($details_pro as $key => $pro) {
+        foreach ($details_pro as $key => $value) {
             # code...
-            $cate_id = $pro->category_id;
+            $cate_id = $value->category_id;
+            $meta_desc = $value->product_desc;
+            $meta_keywords = $value->product_desc;
+            $meta_title = $value->product_name; 
+            $url_canonical = $req->url();
+            //end seo
         }
 
         $related_pro = DB::table('tbl_product')
@@ -126,6 +131,7 @@ class ProductController extends Controller
         ->join('tbl_brand_pro','tbl_brand_pro.brand_id','=','tbl_product.brand_id')
         ->where('tbl_category_product.category_id',$cate_id)->whereNotIn('tbl_product.product_id', [$pro_id])->get(); 
         return view('sanpham.show_detail_pro')->with('category',$cate_product)->with('brand',$brand_product)->with('pro_details',$details_pro)
-        ->with('relate',$related_pro);
+        ->with('relate',$related_pro)
+        ->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical);;
     }
 }
