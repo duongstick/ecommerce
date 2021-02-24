@@ -76,3 +76,6 @@ Route::post('/order', 'CheckoutController@order');
 //manager order admin
 Route::get('/manager-order', 'CheckoutController@manager_order');
 Route::get('/view-order/{orderId}', 'CheckoutController@view_order');
+
+//send mail 
+Route::get('/send-mail', 'HomeController@send_mail');
